@@ -1,10 +1,16 @@
 const path = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
-module.exports = {
-  mode: 'development',
+const mode = process.env.NODE_ENV
+const isModeDevelopment = mode === 'development'
+
+const conf = {
+  mode,
   entry: './src/index.js',
-  devtool: 'inline-source-map',
-  watch: true,
+  devtool: isModeDevelopment ? 'inline-source-map' : 'source-map',
+  watch: !isModeDevelopment,
   module: {
     rules: [
       {
@@ -16,15 +22,27 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist/client'),
-    filename: '[name].bundle.js',
+    filename: isModeDevelopment
+      ? '[name].bundle.js'
+      : '[name].[contenthash].bundle.js',
     publicPath: '/assets/',
   },
-  // devServer: {
-  //   contentBase: path.resolve(__dirname, 'dist'),
-  //   watchContentBase: true,
-  //   hot: true,
-  //   port: 3000,
-  //   writeToDisk: true,
-  //   publicPath: '/assets/',
-  // },
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    watchContentBase: true,
+    hot: true,
+    port: 3000,
+    publicPath: '/assets/',
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/template.html'),
+      filename: '../index.html',
+      alwaysWriteToDisk: true,
+    }),
+    new HtmlWebpackHarddiskPlugin(),
+  ],
 }
+
+module.exports = conf
