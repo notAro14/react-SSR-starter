@@ -3,13 +3,15 @@ const nodeExternals = require('webpack-node-externals')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
+  mode: 'development',
   entry: './server/index.js',
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
+  watch: true,
   target: 'node',
   externals: [nodeExternals()],
   output: {
     path: path.resolve('dist/server'),
-    filename: 'index.js',
+    filename: 'server.js',
   },
   module: {
     rules: [

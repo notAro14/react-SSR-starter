@@ -6,8 +6,8 @@
   "scripts": {
     "build:client": "webpack --config webpack.client.js",
     "build:server": "webpack --config webpack.server.js",
-    "server": "node ./dist/server",
-    "start": "npm-run-all build:* server"
+    "server": "nodemon ./dist/server/server.js",
+    "start": "npm-run-all --parallel build:* server"
   },
   "keywords": [],
   "author": "",

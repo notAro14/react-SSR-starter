@@ -1,11 +1,10 @@
 const path = require('path')
-const htmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
+  watch: true,
   module: {
     rules: [
       {
@@ -18,9 +17,14 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist/client'),
     filename: '[name].bundle.js',
+    publicPath: '/assets/',
   },
-  plugins: [
-    new htmlWebpackPlugin({ template: './src/index.html' }),
-    new CleanWebpackPlugin(),
-  ],
+  // devServer: {
+  //   contentBase: path.resolve(__dirname, 'dist'),
+  //   watchContentBase: true,
+  //   hot: true,
+  //   port: 3000,
+  //   writeToDisk: true,
+  //   publicPath: '/assets/',
+  // },
 }
