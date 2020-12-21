@@ -27,7 +27,7 @@ const conf = {
     publicPath: '/assets/',
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'build'),
+    contentBase: path.resolve(__dirname, 'build/client'),
     hot: true,
     port: 3000,
     publicPath: '/assets/',
@@ -35,7 +35,7 @@ const conf = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/template.html'),
-      filename: '../index.html',
+      filename: 'index.html',
       alwaysWriteToDisk: true,
     }),
     new HtmlWebpackHarddiskPlugin(),
