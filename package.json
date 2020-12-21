@@ -1,13 +1,13 @@
 {
   "name": "ssr",
   "version": "1.0.0",
-  "description": "",
+  "description": "Super simple React SSR",
   "main": "index.js",
   "scripts": {
     "build:client": "NODE_ENV=production webpack --config webpack.client.js",
     "build:server": "NODE_ENV=production webpack --config webpack.server.js",
     "serve-build": "node ./build/server/server.js",
-    "run-build": "npm-run-all clean build:* serve-build",
+    "start": "npm-run-all clean build:* serve-build",
     "clean": "rm -rf build",
     "devserver": "NODE_ENV=development webpack serve --config webpack.client.js",
     "dev": "npm-run-all clean devserver"
