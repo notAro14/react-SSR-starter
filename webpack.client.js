@@ -1,5 +1,4 @@
 const path = require('path')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
@@ -10,7 +9,7 @@ const conf = {
   mode,
   entry: './src/index.js',
   devtool: isModeDevelopment ? 'inline-source-map' : 'source-map',
-  watch: !isModeDevelopment,
+  watch: false,
   module: {
     rules: [
       {
@@ -21,21 +20,19 @@ const conf = {
     ],
   },
   output: {
-    path: path.resolve(__dirname, 'dist/client'),
+    path: path.resolve(__dirname, 'build/client'),
     filename: isModeDevelopment
       ? '[name].bundle.js'
       : '[name].[contenthash].bundle.js',
     publicPath: '/assets/',
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
-    watchContentBase: true,
+    contentBase: path.resolve(__dirname, 'build'),
     hot: true,
     port: 3000,
     publicPath: '/assets/',
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/template.html'),
       filename: '../index.html',
@@ -44,5 +41,7 @@ const conf = {
     new HtmlWebpackHarddiskPlugin(),
   ],
 }
+
+console.log(conf)
 
 module.exports = conf

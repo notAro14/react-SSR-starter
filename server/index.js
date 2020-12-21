@@ -15,7 +15,7 @@ const app = express()
 app.get('/', (req, res) => {
   const app = ReactDOMServer.renderToString(<App />)
 
-  const indexFile = path.resolve('./dist/index.html')
+  const indexFile = path.resolve('./build/index.html')
   fs.readFile(indexFile, 'utf8', (err, data) => {
     if (err) {
       console.error('Something went wrong:', err)
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
   })
 })
 
-app.use('/assets', express.static('./dist/client'))
+app.use('/assets', express.static('./build/client'))
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)

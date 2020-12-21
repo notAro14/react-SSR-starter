@@ -6,10 +6,11 @@
   "scripts": {
     "build:client": "NODE_ENV=production webpack --config webpack.client.js",
     "build:server": "NODE_ENV=production webpack --config webpack.server.js",
-    "serve": "nodemon ./dist/server/server.js",
-    "clean": "rm -f dist/index.html",
-    "start": "yarn run clean && npm-run-all --parallel build:* serve",
-    "dev": "yarn run clean && NODE_ENV=development webpack serve --config webpack.client.js"
+    "serve-build": "node ./build/server/server.js",
+    "run-build": "npm-run-all clean build:* serve-build",
+    "clean": "rm -rf build",
+    "devserver": "NODE_ENV=development webpack serve --config webpack.client.js",
+    "dev": "npm-run-all clean devserver"
   },
   "keywords": [],
   "author": "",
@@ -25,11 +26,8 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "babel-loader": "^8.2.2",
-    "clean-webpack-plugin": "^3.0.0",
-    "cross-env": "^7.0.3",
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.5.0",
-    "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
     "webpack": "^5.9.0",
     "webpack-cli": "^4.2.0",
