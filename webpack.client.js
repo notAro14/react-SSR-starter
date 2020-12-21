@@ -42,6 +42,4 @@ const conf = {
   ],
 }
 
-console.log(conf)
-
 module.exports = conf
