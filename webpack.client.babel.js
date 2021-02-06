@@ -3,7 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin'
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 
-import { HtmlString, HtmlJSX } from './src/html'
+import { HtmlString } from './src/html'
 
 const mode = process.env.NODE_ENV
 const isDevmode = mode === 'development'
