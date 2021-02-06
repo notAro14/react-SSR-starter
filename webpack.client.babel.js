@@ -3,7 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin'
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 
-import Html from './src/html'
+import { HtmlString, HtmlJSX } from './src/html'
 
 const mode = process.env.NODE_ENV
 const isDevmode = mode === 'development'
@@ -37,7 +37,7 @@ const conf = {
   plugins: isDevmode
     ? [
         new HtmlWebpackPlugin({
-          templateContent: Html({ title: 'React SSR' }),
+          templateContent: HtmlString({}),
           filename: 'index.html',
           alwaysWriteToDisk: true,
         }),

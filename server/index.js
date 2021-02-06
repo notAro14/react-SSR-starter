@@ -3,20 +3,22 @@ import express from 'express'
 import ReactDOMServer from 'react-dom/server'
 
 import App from '../src/App'
-import Html from '../src/html'
+import { HtmlJSX, HtmlString } from '../src/html'
 
 const PORT = process.env.PORT || 4001
 const app = express()
 
 app.get('/', (req, res) => {
-  const app = ReactDOMServer.renderToString(<App />)
-  const scripts = `
-    <script defer="defer" src="/assets/vendors.bundle.js"></script>
-    <script defer="defer" src="/assets/main.bundle.js"></script>
-  `
-  const html = Html({ app, title: 'React SSR Counter', scripts })
-
-  res.send(html)
+  const scripts = [
+    { src: '/assets/vendors.bundle.js' },
+    { src: '/assets/main.bundle.js' },
+  ]
+  const html = ReactDOMServer.renderToString(
+    <HtmlJSX title='React SSR' scripts={scripts}>
+      <App />
+    </HtmlJSX>
+  )
+  res.send(HtmlString({ html }))
 })
 
 app.use('/assets', express.static('./dist/client'))
