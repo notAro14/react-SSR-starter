@@ -23,8 +23,7 @@ const conf = {
   },
   output: {
     path: path.resolve(__dirname, 'dist', 'client'),
-    // filename: isDevmode ? '[name].bundle.js' : '[name].[contenthash].bundle.js',
-    filename: '[name].bundle.js',
+    filename: isDevmode ? '[name].bundle.js' : '[name].[contenthash].bundle.js',
     publicPath: '/assets/',
   },
   devServer: {
