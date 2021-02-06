@@ -8,7 +8,7 @@ import { HtmlJSX, HtmlString } from '../src/html'
 const PORT = process.env.PORT || 4001
 const app = express()
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   const scripts = [
     { src: '/assets/vendors.bundle.js' },
     { src: '/assets/main.bundle.js' },
