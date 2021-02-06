@@ -2,6 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
+const Html = require('./src/html')
+
 const mode = process.env.NODE_ENV
 const isDevmode = mode === 'development'
 
@@ -20,7 +22,8 @@ const conf = {
   },
   output: {
     path: path.resolve(__dirname, 'dist', 'client'),
-    filename: isDevmode ? '[name].bundle.js' : '[name].[contenthash].bundle.js',
+    // filename: isDevmode ? '[name].bundle.js' : '[name].[contenthash].bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/assets/',
   },
   devServer: {
@@ -30,14 +33,16 @@ const conf = {
     port: 4000,
     publicPath: '/assets/',
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src/template.html'),
-      filename: 'index.html',
-      alwaysWriteToDisk: true,
-    }),
-    new HtmlWebpackHarddiskPlugin(),
-  ],
+  plugins: isDevmode
+    ? [
+        new HtmlWebpackPlugin({
+          templateContent: Html({ title: 'React SSR' }),
+          filename: 'index.html',
+          alwaysWriteToDisk: true,
+        }),
+        new HtmlWebpackHarddiskPlugin(),
+      ]
+    : [],
   optimization: {
     splitChunks: {
       cacheGroups: {
