@@ -13,4 +13,4 @@ const Html = ({ app = '', title = 'Default Title', scripts = '' }) => `
 </html>
 `
 
-module.exports = Html
+export default Html

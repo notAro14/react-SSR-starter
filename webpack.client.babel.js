@@ -1,8 +1,9 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
+import path from 'path'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin'
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 
-const Html = require('./src/html')
+import Html from './src/html'
 
 const mode = process.env.NODE_ENV
 const isDevmode = mode === 'development'
@@ -42,7 +43,7 @@ const conf = {
         }),
         new HtmlWebpackHarddiskPlugin(),
       ]
-    : [],
+    : [new WebpackManifestPlugin()],
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -59,4 +60,4 @@ const conf = {
   },
 }
 
-module.exports = conf
+export default conf

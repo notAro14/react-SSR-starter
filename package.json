@@ -8,10 +8,10 @@
   },
   "scripts": {
     "build": "npm-run-all clean build:*",
-    "build:client": "NODE_ENV=production webpack --config webpack.client.js",
+    "build:client": "NODE_ENV=production webpack --config webpack.client.babel.js",
     "build:server": "NODE_ENV=production webpack --config webpack.server.js",
     "clean": "rm -rf dist",
-    "dev": "NODE_ENV=development webpack serve --config webpack.client.js",
+    "dev": "NODE_ENV=development webpack serve --config webpack.client.babel.js",
     "serve": "node ./dist/server/server.js",
     "start": "npm-run-all clean dev"
   },
@@ -21,12 +21,14 @@
   "dependencies": {
     "express": "^4.17.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "webpack-manifest-plugin": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
+    "@babel/register": "^7.12.13",
     "babel-loader": "^8.2.2",
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^5.0.0",
