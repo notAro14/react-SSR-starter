@@ -45,6 +45,9 @@ const conf = {
       ]
     : [new WebpackManifestPlugin()],
   optimization: {
+    runtimeChunk: {
+      name: 'runtime',
+    },
     splitChunks: {
       cacheGroups: {
         vendors: {
