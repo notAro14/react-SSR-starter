@@ -3,13 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
 const mode = process.env.NODE_ENV
-const isModeDevelopment = mode === 'development'
+const isDevmode = mode === 'development'
 
 const conf = {
   mode,
   entry: './src/index.js',
-  devtool: isModeDevelopment ? 'inline-source-map' : 'source-map',
-  watch: false,
+  devtool: isDevmode ? 'inline-source-map' : 'source-map',
   module: {
     rules: [
       {
@@ -20,16 +19,15 @@ const conf = {
     ],
   },
   output: {
-    path: path.resolve(__dirname, 'build/client'),
-    filename: isModeDevelopment
-      ? '[name].bundle.js'
-      : '[name].[contenthash].bundle.js',
+    path: path.resolve(__dirname, 'dist', 'client'),
+    filename: isDevmode ? '[name].bundle.js' : '[name].[contenthash].bundle.js',
     publicPath: '/assets/',
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'build/client'),
+    contentBase: path.resolve(__dirname, 'dist', 'client'),
+    historyApiFallback: true,
     hot: true,
-    port: 3000,
+    port: 4000,
     publicPath: '/assets/',
   },
   plugins: [
@@ -40,6 +38,20 @@ const conf = {
     }),
     new HtmlWebpackHarddiskPlugin(),
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+  },
 }
 
 module.exports = conf

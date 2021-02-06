@@ -3,21 +3,23 @@ const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   mode: 'production',
-  entry: './server/index.js',
+  entry: './server',
   devtool: 'source-map',
-  watch: false,
   target: 'node',
   externals: [nodeExternals()],
   output: {
-    path: path.resolve(__dirname, 'build', 'server'),
+    path: path.resolve(__dirname, 'dist', 'server'),
     filename: 'server.js',
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         use: 'babel-loader',
       },
     ],
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
   },
 }

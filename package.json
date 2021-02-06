@@ -2,22 +2,21 @@
   "name": "ssr",
   "version": "1.0.0",
   "description": "Super simple React SSR",
-  "main": "index.js",
   "engines": {
-    "node": "14.x"
+    "node": "14.x",
+    "yarn": "1.x"
   },
   "scripts": {
+    "build": "npm-run-all clean build:*",
     "build:client": "NODE_ENV=production webpack --config webpack.client.js",
     "build:server": "NODE_ENV=production webpack --config webpack.server.js",
-    "build": "npm-run-all clean build:client build:server",
-    "start": "node ./build/server/server.js",
-    "build:run": "npm-run-all build start",
-    "clean": "rm -rf build",
-    "devserver": "NODE_ENV=development webpack serve --config webpack.client.js",
-    "dev": "npm-run-all clean devserver"
+    "clean": "rm -rf dist",
+    "dev": "NODE_ENV=development webpack serve --config webpack.client.js",
+    "serve": "node ./dist/server/server.js",
+    "start": "npm-run-all clean dev"
   },
   "keywords": [],
-  "author": "",
+  "author": "Aro Andriamaro",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",

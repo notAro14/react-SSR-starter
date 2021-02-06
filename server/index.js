@@ -7,7 +7,7 @@ import ReactDOMServer from 'react-dom/server'
 
 import App from '../src/App'
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 4001
 const app = express()
 
 // ...
@@ -15,7 +15,7 @@ const app = express()
 app.get('/', (req, res) => {
   const app = ReactDOMServer.renderToString(<App />)
 
-  const indexFile = path.resolve('./build/client/index.html')
+  const indexFile = path.resolve('./dist/client/index.html')
   fs.readFile(indexFile, 'utf8', (err, data) => {
     if (err) {
       console.error('Something went wrong:', err)
@@ -28,8 +28,8 @@ app.get('/', (req, res) => {
   })
 })
 
-app.use('/assets', express.static('./build/client'))
+app.use('/assets', express.static('./dist/client'))
 
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`)
+  console.log(`✨ Project is running at http://localhost:${PORT}/`)
 })
