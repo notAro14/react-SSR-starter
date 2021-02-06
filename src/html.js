@@ -1,5 +1,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import PropTypes, { string } from 'prop-types'
 
 export const HtmlJSX = ({ children, title = '', scripts = [] }) => {
   return (
@@ -17,6 +18,12 @@ export const HtmlJSX = ({ children, title = '', scripts = [] }) => {
       </body>
     </html>
   )
+}
+
+HtmlJSX.propTypes = {
+  children: PropTypes.element,
+  title: PropTypes.string.isRequired,
+  scripts: PropTypes.arrayOf(string),
 }
 
 export const HtmlString = ({ html = '' }) => `
