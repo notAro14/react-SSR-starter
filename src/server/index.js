@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 import fs from 'fs';
 import path from 'path';
 import { ServerStyleSheet } from 'styled-components';
+import { StaticRouter } from 'react-router-dom';
 
 import App from '../App';
 import HtmlString from '../html';
@@ -32,11 +33,22 @@ fs.readFile(
   }
 );
 
-app.get('/', (req, res) => {
+// this line must come before the 'get'
+app.use('/assets', express.static('./dist/client'));
+// it's important to capture all routes with '/*'
+app.get('/*', (req, res) => {
+  const context = {};
   const sheet = new ServerStyleSheet();
   let html = 'Oops';
   try {
-    const reactApp = renderToString(sheet.collectStyles(<App />));
+    const reactApp = renderToString(
+      sheet.collectStyles(
+        // cf https://www.digitalocean.com/community/tutorials/react-react-router-ssr
+        <StaticRouter location={req.url} context={context}>
+          <App />
+        </StaticRouter>
+      )
+    );
     const styleTags = sheet.getStyleTags();
     html = HtmlString({
       app: reactApp,
@@ -50,10 +62,17 @@ app.get('/', (req, res) => {
   } finally {
     sheet.seal();
   }
+
+  // for redirects
+  if (context.url) {
+    res.redirect(301, context.url);
+  }
+  // to send 'real' 404 status
+  if (context.status === 404) {
+    res.status(404);
+  }
   res.send(html);
 });
-
-app.use('/assets', express.static('./dist/client'));
 
 app.listen(PORT, () => {
   // eslint-disable-next-line
