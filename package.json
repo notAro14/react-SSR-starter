@@ -17,7 +17,11 @@
     "serve": "node ./dist/server/server.js",
     "start": "npm-run-all clean dev"
   },
-  "keywords": [],
+  "keywords": [
+    "server-side-rendering",
+    "react",
+    "boilerplate"
+  ],
   "author": "Aro Andriamaro",
   "license": "ISC",
   "dependencies": {
