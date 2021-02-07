@@ -1,15 +1,19 @@
-# React SSR
+# React SSR boilerplate
 
-Super simple React SSR boilerplate with Webpack 5
+Super simple React SSR boilerplate with Webpack
 
-To run the development server (Client Side Rendered with Hot reload)
+## Development
 
-```console
-yarn dev
+Run the client-side rendered app with webpack-dev-server
+
+```bash
+yarn start
 ```
 
-To the produciton build (Server Side Rendered)
+## Serve production build
 
-```console
-yarn start
+Serve the production build of the server-side rendered app
+
+```bash
+yarn build && yarn serve
 ```
