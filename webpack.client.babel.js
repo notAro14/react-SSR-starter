@@ -1,11 +1,12 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
 
-const Html = require('./src/html')
+import { HtmlString } from './src/html';
 
-const mode = process.env.NODE_ENV
-const isDevmode = mode === 'development'
+const mode = process.env.NODE_ENV;
+const isDevmode = mode === 'development';
 
 const conf = {
   mode,
@@ -22,8 +23,7 @@ const conf = {
   },
   output: {
     path: path.resolve(__dirname, 'dist', 'client'),
-    // filename: isDevmode ? '[name].bundle.js' : '[name].[contenthash].bundle.js',
-    filename: '[name].bundle.js',
+    filename: isDevmode ? '[name].bundle.js' : '[name].[contenthash].bundle.js',
     publicPath: '/assets/',
   },
   devServer: {
@@ -36,14 +36,17 @@ const conf = {
   plugins: isDevmode
     ? [
         new HtmlWebpackPlugin({
-          templateContent: Html({ title: 'React SSR' }),
+          templateContent: HtmlString({}),
           filename: 'index.html',
           alwaysWriteToDisk: true,
         }),
         new HtmlWebpackHarddiskPlugin(),
       ]
-    : [],
+    : [new WebpackManifestPlugin()],
   optimization: {
+    runtimeChunk: {
+      name: 'runtime',
+    },
     splitChunks: {
       cacheGroups: {
         vendors: {
@@ -57,6 +60,6 @@ const conf = {
   resolve: {
     extensions: ['*', '.js', '.jsx'],
   },
-}
+};
 
-module.exports = conf
+export default conf;
