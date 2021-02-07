@@ -1,16 +1,19 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import PropTypes from 'prop-types';
+import parse from 'html-react-parser';
 
-export const HtmlJSX = ({ children, title, scripts }) => (
+export const HtmlJSX = ({ app, title, scripts, styles }) => (
   <html lang="en">
     <head>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>{title}</title>
+      {parse(styles)}
     </head>
     <body>
-      <div id="root">{children}</div>
+      {/* eslint-disable-next-line */}
+      <div id="root" dangerouslySetInnerHTML={{ __html: app }} />
       {scripts.map(({ src }) => (
         <script key={src} src={src} />
       ))}
@@ -19,19 +22,21 @@ export const HtmlJSX = ({ children, title, scripts }) => (
 );
 
 HtmlJSX.defaultProps = {
-  children: undefined,
+  app: '',
   scripts: [],
   title: '',
+  styles: '',
 };
 
 HtmlJSX.propTypes = {
-  children: PropTypes.element,
+  app: PropTypes.string,
   title: PropTypes.string,
   scripts: PropTypes.arrayOf(
     PropTypes.shape({
       src: PropTypes.string.isRequired,
     })
   ),
+  styles: PropTypes.string,
 };
 
 export const HtmlString = ({ html = '' }) => `

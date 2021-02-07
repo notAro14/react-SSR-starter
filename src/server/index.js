@@ -1,8 +1,9 @@
 import React from 'react';
 import express from 'express';
-import ReactDOMServer from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import fs from 'fs';
 import path from 'path';
+import { ServerStyleSheet } from 'styled-components';
 
 import App from '../App';
 import { HtmlJSX, HtmlString } from '../html';
@@ -28,11 +29,25 @@ fs.readFile(
 );
 
 app.get('/', (req, res) => {
-  const html = ReactDOMServer.renderToString(
-    <HtmlJSX title="React SSR" scripts={scripts}>
-      <App />
-    </HtmlJSX>
-  );
+  const sheet = new ServerStyleSheet();
+  let html = 'Oops';
+  const reactApp = renderToString(sheet.collectStyles(<App />));
+  const styleTags = sheet.getStyleTags();
+  try {
+    html = renderToString(
+      <HtmlJSX
+        app={reactApp}
+        scripts={scripts}
+        styles={styleTags}
+        title="React SSR"
+      />
+    );
+  } catch (error) {
+    // eslint-disable-next-line
+    console.error(error);
+  } finally {
+    sheet.seal();
+  }
   res.send(HtmlString({ html }));
 });
 
