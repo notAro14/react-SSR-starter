@@ -5,32 +5,9 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
-  },
-  "plugins": ["react"],
+  "extends": ["airbnb", "airbnb/hooks", "prettier", "prettier/react"],
   "rules": {
-    "arrow-body-style": "off",
-    "react/jsx-props-no-spreading": "off"
-  },
-  "settings": {
-    "react": {
-      "createClass": "createReactClass",
-      "pragma": "React",
-      "fragment": "Fragment",
-      "version": "detect",
-      "flowVersion": "0.53"
-    },
-    "propWrapperFunctions": [
-      "forbidExtraProps",
-      { "property": "freeze", "object": "Object" },
-      { "property": "myFavoriteWrapper" }
-    ],
-    "linkComponents": ["Hyperlink", { "name": "Link", "linkAttribute": "to" }]
+    "comma-dangle": "off",
+    "react/jsx-filename-extension": "off"
   }
 }

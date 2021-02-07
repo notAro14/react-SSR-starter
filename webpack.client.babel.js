@@ -1,12 +1,12 @@
-import path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin'
-import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
 
-import { HtmlString } from './src/html'
+import { HtmlString } from './src/html';
 
-const mode = process.env.NODE_ENV
-const isDevmode = mode === 'development'
+const mode = process.env.NODE_ENV;
+const isDevmode = mode === 'development';
 
 const conf = {
   mode,
@@ -60,6 +60,6 @@ const conf = {
   resolve: {
     extensions: ['*', '.js', '.jsx'],
   },
-}
+};
 
-export default conf
+export default conf;

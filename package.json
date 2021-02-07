@@ -12,7 +12,8 @@
     "build:server": "NODE_ENV=production webpack --config webpack.server.js",
     "clean": "rm -rf dist",
     "dev": "NODE_ENV=development webpack serve --config webpack.client.babel.js",
-    "lint": "eslint --ext .jsx,.js src/ server/",
+    "format": "prettier --write .",
+    "lint": "eslint --ext .jsx,.js src/ webpack.client.babel.js webpack.server.js",
     "serve": "node ./dist/server/server.js",
     "start": "npm-run-all clean dev"
   },
@@ -21,10 +22,13 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "html-webpack-harddisk-plugin": "^1.0.2",
+    "html-webpack-plugin": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "webpack-manifest-plugin": "^3.0.0"
+    "webpack-manifest-plugin": "^3.0.0",
+    "webpack-node-externals": "^2.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -32,14 +36,17 @@
     "@babel/preset-react": "^7.12.7",
     "@babel/register": "^7.12.13",
     "babel-loader": "^8.2.2",
-    "eslint": "^7.19.0",
-    "eslint-plugin-react": "^7.22.0",
-    "html-webpack-harddisk-plugin": "^1.0.2",
-    "html-webpack-plugin": "^5.0.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
     "webpack": "^5.9.0",
     "webpack-cli": "^4.2.0",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-node-externals": "^2.5.2"
+    "webpack-dev-server": "^3.11.0"
   }
 }
