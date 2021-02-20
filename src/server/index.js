@@ -1,10 +1,10 @@
 import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
-import fs from 'fs';
-import path from 'path';
 import { ServerStyleSheet } from 'styled-components';
 import { StaticRouter } from 'react-router-dom';
+// eslint-disable-next-line
+import manifest from '../../dist/client/manifest.json';
 
 import App from '../App';
 import HtmlString from '../html';
@@ -13,25 +13,12 @@ const PORT = process.env.PORT || 4001;
 const app = express();
 
 const scriptsKey = ['vendors.js', 'main.js', 'runtime.js'];
-let scriptTags = '';
-
-fs.readFile(
-  path.resolve(__dirname, '..', 'client', 'manifest.json'),
-  'utf8',
-  (err, data) => {
-    // eslint-disable-next-line
-    if (err) console.error(err);
-    const manifestFile = JSON.parse(data);
-
-    scriptTags = Object.keys(manifestFile)
-      .filter((key) => scriptsKey.includes(key))
-      .reduce(
-        (acc, key) =>
-          `${acc}<script defer src="${manifestFile[key]}"></script>`,
-        ''
-      );
-  }
-);
+const scriptTags = Object.keys(manifest)
+  .filter((key) => scriptsKey.includes(key))
+  .reduce(
+    (acc, key) => `${acc}<script defer src="${manifest[key]}"></script>`,
+    ''
+  );
 
 // this line must come before the 'get'
 app.use('/assets', express.static('./dist/client'));
