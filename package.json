@@ -1,5 +1,5 @@
 {
-  "name": "ssr",
+  "name": "react-ssr-starter",
   "version": "1.0.0",
   "description": "Super simple React SSR",
   "engines": {
