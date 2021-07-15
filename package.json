@@ -25,9 +25,11 @@
   "author": "Aro Andriamaro",
   "license": "ISC",
   "dependencies": {
+    "core-js": "^3.15.2",
     "express": "^4.17.1",
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^5.0.0",
+    "isomorphic-fetch": "^3.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
